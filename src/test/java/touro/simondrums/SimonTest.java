@@ -4,53 +4,60 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class SimonTest {
-    //this test fails
+
+    @Test
+    public void newGame(){
+        //given
+        SimonGame simon = new SimonGame();
+        simon.buildSequence();
+        simon.buildSequence();
+        simon.buildSequence();
+        simon.buildSequence();
+
+        //when
+        simon.newGame();
+
+        //then
+        assertEquals(simon.getDrumSequence().size(), 1);
+        assertFalse(simon.isFinishedRound());
+    }
     @Test
     public void buildSequence() {
         //given
         SimonGame simon = new SimonGame();
-        ArrayList<Drum> drums;
-        int size;
+        ArrayList<Drum> drumSequence = simon.getDrumSequence();
 
         //when
-        drums = simon.buildSequence();
-        size = drums.size() - 1;
+        for (int i = 0; i < 3; i++) {
+            simon.buildSequence();
+        }
+        int currSize = drumSequence.size();
 
         //then
-        switch (drums.get(size)) {
-            case BASS:
-                verify(drums).add(Drum.BASS);
-                break;
-            case SNARE:
-                verify(drums).add(Drum.SNARE);
-                break;
-            case TOM:
-                verify(drums).add(Drum.TOM);
-                break;
-            case CYMBAL:
-                verify(drums).add(Drum.CYMBAL);
-                break;
-            default:
-                fail();
+        assertEquals(currSize, 3);
+        for (int i = 0; i < currSize; i++) {
+            assertThat(drumSequence.get(i), instanceOf(Drum.class));
         }
     }
 
     @Test
-    public void checkResponse_Correct(){
+    public void checkResponse_Correct() {
         //given
         SimonGame simon = new SimonGame();
         ArrayList<Drum> drums;
-        int size;
+        int index;
         boolean response;
 
         //when
-        drums = simon.buildSequence();
-        size = drums.size() - 1;
-        switch (drums.get(size)) {
+        simon.buildSequence();
+        drums = simon.getDrumSequence();
+        index = drums.size() - 1;
+        switch (drums.get(index)) {
             case BASS:
                 response = simon.checkResponse(Drum.BASS);
                 break;
@@ -72,17 +79,18 @@ public class SimonTest {
     }
 
     @Test
-    public void checkResponse_Incorrect(){
+    public void checkResponse_Incorrect() {
         //given
         SimonGame simon = new SimonGame();
         ArrayList<Drum> drums;
-        int size;
+        int index;
         boolean response;
 
         //when
-        drums = simon.buildSequence();
-        size = drums.size() - 1;
-        switch (drums.get(size)) {
+        simon.buildSequence();
+        drums = simon.getDrumSequence();
+        index = drums.size() - 1;
+        switch (drums.get(index)) {
             case BASS:
                 response = simon.checkResponse(Drum.SNARE);
                 break;
