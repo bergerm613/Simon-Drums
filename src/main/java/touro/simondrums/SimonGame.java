@@ -10,6 +10,10 @@ public class SimonGame {
     List<Drum> drums = Arrays.asList(Drum.values());
     int amountDrums = drums.size();
 
+    public SimonGame() {
+        newGame();
+    }
+
     public void newGame() {
         index = 0;
         finishedRound = false;

@@ -8,15 +8,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class Frame extends JFrame {
-//    private LogicClass logic;
     private JButton crashCymbal;
     private JButton snare;
     private JButton bass;
     private JButton hiHatCymbal;
-    public Frame(/*LogicClass logic*/) throws HeadlessException {
+
+    public Frame(SimonGame game) {
         super();
-//        this.logic = logic;
-//        ListenerEvents listenerEvents = new ListenerEvents(logic);
+        ListenerEvents listenerEvents = new ListenerEvents(game);
 
         setSize(700, 275);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -26,25 +25,31 @@ public class Frame extends JFrame {
         JPanel drumsPanel = new JPanel();
         drumsPanel.setLayout(new GridLayout(1,4));
 
-        crashCymbal = setButtonImage("images/Crash-Cymbal.jpeg", "Crash Cymbal");
+        crashCymbal = setButtonImage("images/crash-cymbal.png", "Crash Cymbal");
+        crashCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.CRASH));
+        crashCymbal.setBackground(Color.WHITE);
         drumsPanel.add(crashCymbal);
 
-        snare = setButtonImage("images/Snare.jpeg", "Snare");
+        snare = setButtonImage("images/snare.png", "Snare");
+        snare.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.SNARE));
+        snare.setBackground(Color.WHITE);
         drumsPanel.add(snare);
 
-        bass = setButtonImage("images/Bass.jpeg", "Bass");
+        bass = setButtonImage("images/bass.png", "Bass");
+        bass.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.BASS));
+        bass.setBackground(Color.WHITE);
         drumsPanel.add(bass);
 
-        hiHatCymbal = setButtonImage("images/Hi-Hat-Cymbal.jpeg", "Hi Hat Cymbal");
+        hiHatCymbal = setButtonImage("images/hi-hat-cymbal.png", "Hi Hat Cymbal");
+        hiHatCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.HIHAT));
+        hiHatCymbal.setBackground(Color.WHITE);
         drumsPanel.add(hiHatCymbal);
 
         add(drumsPanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
         JButton newGame = new JButton("New Game");
-        newGame.addActionListener(actionEvent -> {
-//            listenerEvents.newGame();
-        });
+        newGame.addActionListener(actionEvent -> listenerEvents.newGame());
 
         buttonPanel.add(newGame);
         add(buttonPanel, BorderLayout.SOUTH);
