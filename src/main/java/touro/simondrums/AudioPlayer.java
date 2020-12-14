@@ -3,97 +3,71 @@ package touro.simondrums;
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.CountDownLatch;
 
-public class AudioPlayer implements LineListener {
-    Clip bassClip;
-    Clip crashClip;
-    Clip hiHatClip;
-    Clip snareClip;
-    Clip wahClip;
+public class AudioPlayer {
 
     InputStream inputStream;
     AudioInputStream audioIn;
 
-    private boolean playCompleted = true;
-
-    public AudioPlayer() {
-        try {
-            bassClip = setupAudioClip("bass-sound.wav");
-            crashClip = setupAudioClip("crash-cymbal-sound.wav");
-            hiHatClip = setupAudioClip("hi-hat-cymbal-sound.wav");
-            snareClip = setupAudioClip("snare-sound.wav");
-            wahClip = setupAudioClip("wah-wah-wah.wav");
-
-            inputStream.close();
-            audioIn.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private Clip setupAudioClip(String fileName) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        CountDownLatch syncLatch = new CountDownLatch(1);
         inputStream = ListenerEvents.class.getClassLoader().getResourceAsStream(fileName);
         audioIn = AudioSystem.getAudioInputStream(inputStream);
         Clip clip = AudioSystem.getClip();
+        clip.addLineListener(e -> {
+            if (e.getType() == LineEvent.Type.STOP) {
+                syncLatch.countDown();
+            }
+        });
         clip.open(audioIn);
-        clip.addLineListener(this);
+        //TODO: Do we still need this if we have to redo this whole method every time anyway?
+        clip.setMicrosecondPosition(0); //restart clip
+        clip.start();
+        try {
+            syncLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        inputStream.close();
+        audioIn.close();
 
         return clip;
     }
 
 
     public void drumAudioResponse(Drum drum) {
-        System.out.println("drum audio playing for: " + drum);
-        while(!playCompleted) {
-                    // wait for the playback completes
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                }
 
         switch (drum) {
             case BASS:
-                System.out.println("bass start");
-                bassClip.setMicrosecondPosition(0); //restart clip
-                bassClip.start();
+                playClip("bass-sound.wav");
                 break;
             case CRASH:
-                System.out.println("crash start");
-                crashClip.setMicrosecondPosition(0);
-                crashClip.start();
+                playClip("crash-cymbal-sound.wav");
                 break;
             case HIHAT:
-                System.out.println("hi hat start");
-                hiHatClip.setMicrosecondPosition(0);
-                hiHatClip.start();
+                playClip("hi-hat-cymbal-sound.wav");
                 break;
             case SNARE:
-                System.out.println("snare start");
-                snareClip.setMicrosecondPosition(0);
-                snareClip.start();
+                playClip("snare-sound.wav");
                 break;
+        }
+    }
+
+    private void playClip(String s) {
+        try {
+            setupAudioClip(s);
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
         }
     }
 
     public void playFailure() {
-        wahClip.setMicrosecondPosition(0);
-        wahClip.start();
-    }
-
-    @Override
-    public void update(LineEvent event) {
-        LineEvent.Type type = event.getType();
-
-        if (type == LineEvent.Type.START) {
-            playCompleted = false;
-            System.out.println("Playback started.");
-
-        } else if (type == LineEvent.Type.STOP) {
-            playCompleted = true;
-            System.out.println("Playback completed.");
-        }
+        playClip("wah-wah-wah.wav");
     }
 }

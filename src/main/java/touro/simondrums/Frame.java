@@ -8,10 +8,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class Frame extends JFrame {
-    private JButton crashCymbal;
-    private JButton snare;
-    private JButton bass;
-    private JButton hiHatCymbal;
+    private JButton crashCymbal = new JButton();
+    private JButton snare = new JButton();
+    private JButton bass = new JButton();
+    private JButton hiHatCymbal = new JButton();
 
     public Frame(SimonGame game) {
         super();
@@ -25,22 +25,22 @@ public class Frame extends JFrame {
         JPanel drumsPanel = new JPanel();
         drumsPanel.setLayout(new GridLayout(1,4));
 
-        crashCymbal = setButtonImage("images/crash-cymbal.png", "Crash Cymbal");
+        setButtonImage("images/crash-cymbal.png", crashCymbal);
         crashCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.CRASH));
         crashCymbal.setBackground(Color.WHITE);
         drumsPanel.add(crashCymbal);
 
-        snare = setButtonImage("images/snare.png", "Snare");
+        setButtonImage("images/snare.png", snare);
         snare.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.SNARE));
         snare.setBackground(Color.WHITE);
         drumsPanel.add(snare);
 
-        bass = setButtonImage("images/bass.png", "Bass");
+        setButtonImage("images/bass.png", bass);
         bass.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.BASS));
         bass.setBackground(Color.WHITE);
         drumsPanel.add(bass);
 
-        hiHatCymbal = setButtonImage("images/hi-hat-cymbal.png", "Hi Hat Cymbal");
+        setButtonImage("images/hi-hat-cymbal.png", hiHatCymbal);
         hiHatCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.HIHAT));
         hiHatCymbal.setBackground(Color.WHITE);
         drumsPanel.add(hiHatCymbal);
@@ -55,16 +55,15 @@ public class Frame extends JFrame {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    private JButton setButtonImage(String fileName, String name) {
+    private void setButtonImage(String fileName, JButton button) {
         try {
             File file = new File(fileName);
             Image image = ImageIO.read(file);
             image = image.getScaledInstance(150,200,Image.SCALE_SMOOTH);
-            return new JButton(new ImageIcon(image));
+            button.setIcon(new ImageIcon(image));
 
         } catch (IOException e) {
             e.printStackTrace();
-            return new JButton(name);
         }
     }
 

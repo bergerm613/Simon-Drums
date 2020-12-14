@@ -8,7 +8,6 @@ public class ListenerEvents {
 
     public ListenerEvents(SimonGame game) {
         this.game = game;
-
     }
 
     public void newGame() {
@@ -17,21 +16,20 @@ public class ListenerEvents {
     }
 
     public void drumClicked(Drum drum) {
-        System.out.println("player drum clicked: " + drum);
-        audioPlayer.drumAudioResponse(drum);
 
         //if that was the wrong response
         if (!game.checkResponse(drum)) {
             audioPlayer.playFailure();
+            //TODO: Should not automatically start new game. Should just disable everything till new game is started
             game.newGame();
         }
-        else if (game.isFinishedRound()) {
+        else audioPlayer.drumAudioResponse(drum);
+        if (game.isFinishedRound()) {
             computerPlaySequence();
         }
     }
 
     private void computerPlaySequence() {
-        System.out.println("Computer playing sequence");
         ArrayList<Drum> sequence = game.getDrumSequence();
 
         for (Drum currDrum : sequence) {

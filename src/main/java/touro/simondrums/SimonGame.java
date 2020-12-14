@@ -23,6 +23,7 @@ public class SimonGame {
 
     public boolean checkResponse(Drum userResponse) {
         int size = drumSequence.size();
+        finishedRound = false;
 
         if (!userResponse.equals(drumSequence.get(index))) {
             return false;
