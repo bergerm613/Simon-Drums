@@ -1,21 +1,22 @@
 package touro.simondrums;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
 
 public class Frame extends JFrame {
-    private JButton crashCymbal = new JButton();
-    private JButton snare = new JButton();
-    private JButton bass = new JButton();
-    private JButton hiHatCymbal = new JButton();
+    Color red = new Color(237, 13, 9);
+    Color blue = new Color(9, 32, 237);
+    Color green = new Color(17, 138, 61);
+    Color yellow = new Color(238, 247, 67);
+
+    private MyButton crashCymbal = new MyButton("images/crash-cymbal.png", red);
+    private MyButton snare = new MyButton("images/snare.png", blue);
+    private MyButton bass = new MyButton("images/bass.png", green);
+    private MyButton hiHatCymbal = new MyButton("images/hi-hat-cymbal.png", yellow);
 
     public Frame(SimonGame game) {
         super();
-        ListenerEvents listenerEvents = new ListenerEvents(game);
+        ListenerEvents listenerEvents = new ListenerEvents(game, crashCymbal, snare, bass, hiHatCymbal);
 
         setSize(700, 275);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -25,22 +26,18 @@ public class Frame extends JFrame {
         JPanel drumsPanel = new JPanel();
         drumsPanel.setLayout(new GridLayout(1,4));
 
-        setButtonImage("images/crash-cymbal.png", crashCymbal);
         crashCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.CRASH));
         crashCymbal.setBackground(Color.WHITE);
         drumsPanel.add(crashCymbal);
 
-        setButtonImage("images/snare.png", snare);
         snare.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.SNARE));
         snare.setBackground(Color.WHITE);
         drumsPanel.add(snare);
 
-        setButtonImage("images/bass.png", bass);
         bass.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.BASS));
         bass.setBackground(Color.WHITE);
         drumsPanel.add(bass);
 
-        setButtonImage("images/hi-hat-cymbal.png", hiHatCymbal);
         hiHatCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.HIHAT));
         hiHatCymbal.setBackground(Color.WHITE);
         drumsPanel.add(hiHatCymbal);
@@ -54,18 +51,4 @@ public class Frame extends JFrame {
         buttonPanel.add(newGame);
         add(buttonPanel, BorderLayout.SOUTH);
     }
-
-    private void setButtonImage(String fileName, JButton button) {
-        try {
-            File file = new File(fileName);
-            Image image = ImageIO.read(file);
-            image = image.getScaledInstance(150,200,Image.SCALE_SMOOTH);
-            button.setIcon(new ImageIcon(image));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }
