@@ -10,6 +10,7 @@ public class ListenerEvents {
     MyButton bass;
     MyButton hiHat;
     boolean player;
+    boolean gameIsPlaying;
 
     public ListenerEvents(SimonGame game, MyButton crash, MyButton snare, MyButton bass, MyButton hiHat) {
         this.game = game;
@@ -21,17 +22,17 @@ public class ListenerEvents {
 
     public void newGame() {
         game.newGame();
+        gameIsPlaying = true;
         computerPlaySequence();
     }
 
     public void drumClicked(Drum drum) {
 
-        if (player) {
+        if (player && gameIsPlaying) {
             //if that was the wrong response
             if (!game.checkResponse(drum)) {
                 audioPlayer.playFailure();
-                //TODO: Should not automatically start new game. Should just disable everything till new game is started
-                game.newGame();
+                gameIsPlaying = false;
             } else audioPlayer.drumAudioResponse(drum);
             if (game.isFinishedRound()) {
                 computerPlaySequence();
