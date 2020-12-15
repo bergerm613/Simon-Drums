@@ -10,6 +10,10 @@ public class SimonGame {
     List<Drum> drums = Arrays.asList(Drum.values());
     int amountDrums = drums.size();
 
+    public SimonGame() {
+        newGame();
+    }
+
     public void newGame() {
         index = 0;
         finishedRound = false;
@@ -19,6 +23,7 @@ public class SimonGame {
 
     public boolean checkResponse(Drum userResponse) {
         int size = drumSequence.size();
+        finishedRound = false;
 
         if (!userResponse.equals(drumSequence.get(index))) {
             return false;
