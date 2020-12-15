@@ -8,6 +8,6 @@ can replay the sequence.
 ![ALT](SimonDrumsScreenshot.png)
 
 #### Contributors
-[Tamar Aufrichtig](https://github.com/TamarAuf/Simon-Drums)
-[Michelle Berger](https://github.com/bergerm613/Simon-Drums)
+[Tamar Aufrichtig](https://github.com/TamarAuf/Simon-Drums)  
+[Michelle Berger](https://github.com/bergerm613/Simon-Drums)  
 [Mindy Gottlieb](https://github.com/Mindy712/Simon-Drums)
