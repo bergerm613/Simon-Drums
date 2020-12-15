@@ -1,5 +1,6 @@
 package touro.simondrums;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class ListenerEvents {
@@ -9,15 +10,17 @@ public class ListenerEvents {
     MyButton snare;
     MyButton bass;
     MyButton hiHat;
+    JLabel highScore;
     boolean player;
     boolean gameIsPlaying;
 
-    public ListenerEvents(SimonGame game, MyButton crash, MyButton snare, MyButton bass, MyButton hiHat) {
+    public ListenerEvents(SimonGame game, MyButton crash, MyButton snare, MyButton bass, MyButton hiHat, JLabel highScore) {
         this.game = game;
         this.crash = crash;
         this.snare = snare;
         this.bass = bass;
         this.hiHat = hiHat;
+        this.highScore = highScore;
     }
 
     public void newGame() {
@@ -33,6 +36,7 @@ public class ListenerEvents {
             if (!game.checkResponse(drum)) {
                 audioPlayer.playFailure();
                 gameIsPlaying = false;
+                highScore.setText("High Score: " + game.getHighScore());
             } else audioPlayer.drumAudioResponse(drum);
             if (game.isFinishedRound()) {
                 computerPlaySequence();
