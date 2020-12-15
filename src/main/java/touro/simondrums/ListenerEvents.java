@@ -6,20 +6,12 @@ import java.util.ArrayList;
 public class ListenerEvents {
     SimonGame game;
     AudioPlayer audioPlayer = new AudioPlayer();
-    MyButton crash;
-    MyButton snare;
-    MyButton bass;
-    MyButton hiHat;
     JLabel highScore;
     boolean player;
     boolean gameIsPlaying;
 
-    public ListenerEvents(SimonGame game, MyButton crash, MyButton snare, MyButton bass, MyButton hiHat, JLabel highScore) {
+    public ListenerEvents(SimonGame game, JLabel highScore) {
         this.game = game;
-        this.crash = crash;
-        this.snare = snare;
-        this.bass = bass;
-        this.hiHat = hiHat;
         this.highScore = highScore;
     }
 
@@ -53,20 +45,7 @@ public class ListenerEvents {
 
         for (Drum currDrum : sequence) {
             player = false;
-            switch (currDrum) {
-                case CRASH:
-                    crash.doClick();
-                    break;
-                case SNARE:
-                    snare.doClick();
-                    break;
-                case BASS:
-                    bass.doClick();
-                    break;
-                case HIHAT:
-                    hiHat.doClick();
-                    break;
-            }
+            drumClicked(currDrum);
         }
     }
 }
