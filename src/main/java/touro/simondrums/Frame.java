@@ -48,7 +48,7 @@ public class Frame extends JFrame {
         add(drumsPanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
-        JButton newGame = new JButton("New Game");
+        JButton newGame = new JButton("Start new game");
         newGame.addActionListener(actionEvent -> listenerEvents.newGame());
 
         buttonPanel.add(newGame);
