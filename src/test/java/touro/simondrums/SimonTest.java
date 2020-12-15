@@ -39,7 +39,7 @@ public class SimonTest {
         int currSize = drumSequence.size();
 
         //then
-        assertEquals(currSize, 3);
+        assertEquals(currSize, 4);
         for (int i = 0; i < currSize; i++) {
             assertThat(drumSequence.get(i), instanceOf(Drum.class));
         }
@@ -52,9 +52,9 @@ public class SimonTest {
         ArrayList<Drum> drums;
         int index;
         boolean response;
+        simon.buildSequence();
 
         //when
-        simon.buildSequence();
         drums = simon.getDrumSequence();
         index = drums.size() - 1;
         switch (drums.get(index)) {
@@ -64,11 +64,11 @@ public class SimonTest {
             case SNARE:
                 response = simon.checkResponse(Drum.SNARE);
                 break;
-            case TOM:
-                response = simon.checkResponse(Drum.TOM);
+            case CRASH:
+                response = simon.checkResponse(Drum.CRASH);
                 break;
-            case CYMBAL:
-                response = simon.checkResponse(Drum.CYMBAL);
+            case HIHAT:
+                response = simon.checkResponse(Drum.HIHAT);
                 break;
             default:
                 response = false;
@@ -85,9 +85,9 @@ public class SimonTest {
         ArrayList<Drum> drums;
         int index;
         boolean response;
+        simon.buildSequence();
 
         //when
-        simon.buildSequence();
         drums = simon.getDrumSequence();
         index = drums.size() - 1;
         switch (drums.get(index)) {
@@ -97,11 +97,11 @@ public class SimonTest {
             case SNARE:
                 response = simon.checkResponse(Drum.BASS);
                 break;
-            case TOM:
-                response = simon.checkResponse(Drum.CYMBAL);
+            case CRASH:
+                response = simon.checkResponse(Drum.HIHAT);
                 break;
-            case CYMBAL:
-                response = simon.checkResponse(Drum.TOM);
+            case HIHAT:
+                response = simon.checkResponse(Drum.CRASH);
                 break;
             default:
                 response = true;
