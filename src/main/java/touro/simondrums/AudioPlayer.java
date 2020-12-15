@@ -10,7 +10,7 @@ public class AudioPlayer {
     InputStream inputStream;
     AudioInputStream audioIn;
 
-    private Clip setupAudioClip(String fileName) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    private void setupAudioClip(String fileName) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         CountDownLatch syncLatch = new CountDownLatch(1);
         inputStream = ListenerEvents.class.getClassLoader().getResourceAsStream(fileName);
         audioIn = AudioSystem.getAudioInputStream(inputStream);
@@ -30,8 +30,6 @@ public class AudioPlayer {
 
         inputStream.close();
         audioIn.close();
-
-        return clip;
     }
 
 
