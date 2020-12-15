@@ -14,14 +14,19 @@ public class Frame extends JFrame {
     private MyButton bass = new MyButton("images/bass.png", green);
     private MyButton hiHatCymbal = new MyButton("images/hi-hat-cymbal.png", yellow);
 
+    private JLabel highScore = new JLabel("High Score: 0", SwingConstants.CENTER);
+
     public Frame(SimonGame game) {
         super();
-        ListenerEvents listenerEvents = new ListenerEvents(game, crashCymbal, snare, bass, hiHatCymbal);
+        ListenerEvents listenerEvents = new ListenerEvents(game, crashCymbal, snare, bass, hiHatCymbal, highScore);
 
         setSize(700, 275);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simon");
         setLayout(new BorderLayout());
+
+        highScore.setOpaque(false);
+        add(highScore, BorderLayout.PAGE_START);
 
         JPanel drumsPanel = new JPanel();
         drumsPanel.setLayout(new GridLayout(1,4));

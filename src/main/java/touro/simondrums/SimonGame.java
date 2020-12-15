@@ -3,6 +3,8 @@ package touro.simondrums;
 import java.util.*;
 
 public class SimonGame {
+    private int highScore = 0;
+
     private ArrayList<Drum> drumSequence = new ArrayList<>();
     private int index = 0;
     private boolean finishedRound = false;
@@ -35,9 +37,15 @@ public class SimonGame {
                 finishedRound = true;
                 buildSequence();
                 index = 0;
+
+                highScore = Math.max(highScore, size);
             }
             return true;
         }
+    }
+
+    public int getHighScore() {
+        return highScore;
     }
 
     public void buildSequence() {
