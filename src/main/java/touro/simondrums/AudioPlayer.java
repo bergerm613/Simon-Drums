@@ -21,8 +21,6 @@ public class AudioPlayer {
             }
         });
         clip.open(audioIn);
-        //TODO: Do we still need this if we have to redo this whole method every time anyway?
-        clip.setMicrosecondPosition(0); //restart clip
         clip.start();
         try {
             syncLatch.await();
