@@ -4,19 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Frame extends JFrame {
-    Color red = new Color(237, 13, 9);
-    Color blue = new Color(9, 32, 237);
-    Color green = new Color(17, 138, 61);
-    Color yellow = new Color(238, 247, 67);
+    private MyButton crashCymbal = new MyButton("images/crash-cymbal.png", Color.RED);
+    private MyButton snare = new MyButton("images/snare.png", Color.BLUE);
+    private MyButton bass = new MyButton("images/bass.png", Color.GREEN);
+    private MyButton hiHatCymbal = new MyButton("images/hi-hat-cymbal.png", Color.YELLOW);
 
-    private MyButton crashCymbal = new MyButton("images/crash-cymbal.png", red);
-    private MyButton snare = new MyButton("images/snare.png", blue);
-    private MyButton bass = new MyButton("images/bass.png", green);
-    private MyButton hiHatCymbal = new MyButton("images/hi-hat-cymbal.png", yellow);
+    JPanel buttonPanel = new JPanel();
 
     public Frame(SimonGame game) {
         super();
-        ListenerEvents listenerEvents = new ListenerEvents(game, crashCymbal, snare, bass, hiHatCymbal);
+        ListenerEvents listenerEvents = new ListenerEvents(game, buttonPanel);
 
         setSize(700, 275);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -44,7 +41,6 @@ public class Frame extends JFrame {
 
         add(drumsPanel, BorderLayout.CENTER);
 
-        JPanel buttonPanel = new JPanel();
         JButton newGame = new JButton("Start new game");
         newGame.addActionListener(actionEvent -> listenerEvents.newGame());
 

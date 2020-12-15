@@ -1,23 +1,20 @@
 package touro.simondrums;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class ListenerEvents {
     SimonGame game;
     AudioPlayer audioPlayer = new AudioPlayer();
-    MyButton crash;
-    MyButton snare;
-    MyButton bass;
-    MyButton hiHat;
     boolean player;
     boolean gameIsPlaying;
 
-    public ListenerEvents(SimonGame game, MyButton crash, MyButton snare, MyButton bass, MyButton hiHat) {
+    JPanel buttonPanel;
+
+    public ListenerEvents(SimonGame game, JPanel buttonPanel) {
         this.game = game;
-        this.crash = crash;
-        this.snare = snare;
-        this.bass = bass;
-        this.hiHat = hiHat;
+        this.buttonPanel = buttonPanel;
     }
 
     public void newGame() {
@@ -27,11 +24,13 @@ public class ListenerEvents {
     }
 
     public void drumClicked(Drum drum) {
+        changeColor(drum);
 
         if (player && gameIsPlaying) {
             //if that was the wrong response
             if (!game.checkResponse(drum)) {
                 audioPlayer.playFailure();
+                buttonPanel.setBackground(Color.WHITE);
                 gameIsPlaying = false;
             } else audioPlayer.drumAudioResponse(drum);
             if (game.isFinishedRound()) {
@@ -49,20 +48,25 @@ public class ListenerEvents {
 
         for (Drum currDrum : sequence) {
             player = false;
-            switch (currDrum) {
-                case CRASH:
-                    crash.doClick();
-                    break;
-                case SNARE:
-                    snare.doClick();
-                    break;
-                case BASS:
-                    bass.doClick();
-                    break;
-                case HIHAT:
-                    hiHat.doClick();
-                    break;
-            }
+            changeColor(currDrum);
+            audioPlayer.drumAudioResponse(currDrum);
+        }
+    }
+
+    private void changeColor(Drum drum) {
+        switch (drum) {
+            case CRASH:
+                buttonPanel.setBackground(Color.RED);
+                break;
+            case SNARE:
+                buttonPanel.setBackground(Color.BLUE);
+                break;
+            case BASS:
+                buttonPanel.setBackground(Color.GREEN);
+                break;
+            case HIHAT:
+                buttonPanel.setBackground(Color.YELLOW);
+                break;
         }
     }
 }
