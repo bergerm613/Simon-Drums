@@ -27,19 +27,19 @@ public class Frame extends JFrame {
         drumsPanel.setLayout(new GridLayout(1,4));
 
         crashCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.CRASH));
-        crashCymbal.setBackground(Color.WHITE);
+        crashCymbal.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         drumsPanel.add(crashCymbal);
 
         snare.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.SNARE));
-        snare.setBackground(Color.WHITE);
+        snare.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         drumsPanel.add(snare);
 
         bass.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.BASS));
-        bass.setBackground(Color.WHITE);
+        bass.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         drumsPanel.add(bass);
 
         hiHatCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.HIHAT));
-        hiHatCymbal.setBackground(Color.WHITE);
+        hiHatCymbal.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         drumsPanel.add(hiHatCymbal);
 
         add(drumsPanel, BorderLayout.CENTER);

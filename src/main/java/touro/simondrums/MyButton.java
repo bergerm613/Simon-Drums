@@ -10,21 +10,17 @@ import javax.swing.*;
 
 public class MyButton extends JButton {
 
-    private Color pressedBackgroundColor;
+    private Color backgroundColor;
 
-    public MyButton(String filename, Color pressedBackgroundColor) {
+    public MyButton(String filename, Color backgroundColor) {
         setButtonImage(filename, this);
-        this.pressedBackgroundColor = pressedBackgroundColor;
+        this.backgroundColor = backgroundColor;
         super.setContentAreaFilled(false);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        if (getModel().isPressed()) {
-            g.setColor(pressedBackgroundColor);
-        } else {
-            g.setColor(Color.white);
-        }
+        g.setColor(backgroundColor);
         g.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(g);
     }
