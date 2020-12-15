@@ -48,7 +48,6 @@ public class ListenerEvents {
 
         for (Drum currDrum : sequence) {
             player = false;
-            changeColor(currDrum);
             drumClicked(currDrum);
         }
     }
