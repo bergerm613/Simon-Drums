@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.util.concurrent.CountDownLatch;
 
 public class AudioPlayer {
-
     InputStream inputStream;
     AudioInputStream audioIn;
 
@@ -32,9 +31,7 @@ public class AudioPlayer {
         audioIn.close();
     }
 
-
     public void drumAudioResponse(Drum drum) {
-
         switch (drum) {
             case BASS:
                 playClip("bass-sound.wav");
@@ -54,11 +51,7 @@ public class AudioPlayer {
     private void playClip(String s) {
         try {
             setupAudioClip(s);
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
