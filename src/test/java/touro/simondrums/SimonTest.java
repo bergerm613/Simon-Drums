@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class SimonTest {
 
