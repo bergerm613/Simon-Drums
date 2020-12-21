@@ -7,12 +7,14 @@ public class ListenerEvents {
     SimonGame game;
     AudioPlayer audioPlayer = new AudioPlayer();
     JLabel highScore;
+    JLabel currentScore;
     boolean player;
     boolean gameIsPlaying;
 
-    public ListenerEvents(SimonGame game, JLabel highScore) {
+    public ListenerEvents(SimonGame game, JLabel highScore, JLabel currentScore) {
         this.game = game;
         this.highScore = highScore;
+        this.currentScore = currentScore;
     }
 
     public void newGame() {
@@ -29,9 +31,11 @@ public class ListenerEvents {
                 audioPlayer.playFailure();
                 gameIsPlaying = false;
                 highScore.setText("High Score: " + game.getHighScore());
+                currentScore.setText("");
             } else audioPlayer.drumAudioResponse(drum);
             if (game.isFinishedRound()) {
                 computerPlaySequence();
+                currentScore.setText("Current Score: " + game.getCurrentScore());
             }
         }
         else {

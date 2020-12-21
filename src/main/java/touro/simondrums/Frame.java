@@ -15,18 +15,18 @@ public class Frame extends JFrame {
     private MyButton hiHatCymbal = new MyButton("images/hi-hat-cymbal.png", yellow);
 
     private JLabel highScore = new JLabel("High Score: 0", SwingConstants.CENTER);
+    private JLabel currentScore = new JLabel("Current Score: 0");
 
     public Frame(SimonGame game) {
         super();
-        ListenerEvents listenerEvents = new ListenerEvents(game, highScore);
+        ListenerEvents listenerEvents = new ListenerEvents(game, highScore, currentScore);
 
         setSize(700, 275);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simon");
         setLayout(new BorderLayout());
 
-        highScore.setOpaque(false);
-        add(highScore, BorderLayout.PAGE_START);
+        addScorePanel();
 
         JPanel drumsPanel = new JPanel();
         drumsPanel.setLayout(new GridLayout(1,4));
@@ -55,5 +55,19 @@ public class Frame extends JFrame {
 
         buttonPanel.add(newGame);
         add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    private void addScorePanel() {
+        JPanel scorePanel = new JPanel();
+        scorePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 0));
+        scorePanel.setOpaque(true);
+
+        highScore.setOpaque(true);
+        scorePanel.add(highScore);
+
+        currentScore.setOpaque(true);
+        scorePanel.add(currentScore);
+
+        add(scorePanel, BorderLayout.PAGE_START);
     }
 }
