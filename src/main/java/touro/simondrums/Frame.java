@@ -18,7 +18,7 @@ public class Frame extends JFrame {
     public Frame(SimonGame game) {
         super();
 
-        UserListenerEvents userListenerEvents = new UserListenerEvents(game, highScore);
+        UserListenerEvents userListenerEvents = new UserListenerEvents(game, highScore, currentScore);
 
         setSize(700, 275);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
