@@ -1,18 +1,16 @@
 package touro.simondrums;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Frame extends JFrame {
-    Color red = new Color(237, 13, 9);
-    Color blue = new Color(9, 32, 237);
-    Color green = new Color(17, 138, 61);
-    Color yellow = new Color(238, 247, 67);
-
-    private MyButton crashCymbal = new MyButton("images/crash-cymbal.png", red);
-    private MyButton snare = new MyButton("images/snare.png", blue);
-    private MyButton bass = new MyButton("images/bass.png", green);
-    private MyButton hiHatCymbal = new MyButton("images/hi-hat-cymbal.png", yellow);
+    private JButton crashCymbal;
+    private JButton snare;
+    private JButton bass;
+    private JButton hiHatCymbal;
 
     private JLabel highScore = new JLabel("High Score: 0", SwingConstants.CENTER);
     private JLabel currentScore = new JLabel("Current Score: 0");
@@ -25,11 +23,12 @@ public class Frame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simon");
         setLayout(new BorderLayout());
+        setButtons();
 
         addScorePanel();
 
         JPanel drumsPanel = new JPanel();
-        drumsPanel.setLayout(new GridLayout(1,4));
+        drumsPanel.setLayout(new GridLayout(1, 4));
 
         crashCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.CRASH));
         crashCymbal.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
@@ -57,6 +56,40 @@ public class Frame extends JFrame {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    private void setButtons() {
+        crashCymbal = new JButton();
+        crashCymbal.setOpaque(true);
+        crashCymbal.setBackground(Color.RED);
+        setButtonImage("images/crash-cymbal.png", crashCymbal);
+
+        snare = new JButton();
+        snare.setOpaque(true);
+        snare.setBackground(Color.BLUE);
+        setButtonImage("images/snare.png", snare);
+
+        bass = new JButton();
+        bass.setOpaque(true);
+        bass.setBackground(new Color(17, 138, 61));
+        setButtonImage("images/bass.png", bass);
+
+        hiHatCymbal = new JButton();
+        hiHatCymbal.setOpaque(true);
+        hiHatCymbal.setBackground(Color.YELLOW);
+        setButtonImage("images/hi-hat-cymbal.png", hiHatCymbal);
+    }
+
+    private void setButtonImage(String fileName, JButton button) {
+        try {
+            File file = new File(fileName);
+            Image image = ImageIO.read(file);
+            image = image.getScaledInstance(125, 175, Image.SCALE_SMOOTH);
+            button.setIcon(new ImageIcon(image));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void addScorePanel() {
         JPanel scorePanel = new JPanel();
         scorePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 0));
@@ -71,3 +104,4 @@ public class Frame extends JFrame {
         add(scorePanel, BorderLayout.PAGE_START);
     }
 }
+
