@@ -13,10 +13,12 @@ public class Frame extends JFrame {
     private JButton hiHatCymbal;
 
     private JLabel highScore = new JLabel("High Score: 0", SwingConstants.CENTER);
+    private JLabel currentScore = new JLabel("Current Score: 0");
 
     public Frame(SimonGame game) {
         super();
-        ListenerEvents listenerEvents = new ListenerEvents(game, highScore);
+
+        UserListenerEvents userListenerEvents = new UserListenerEvents(game, highScore, currentScore);
 
         setSize(700, 275);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -24,25 +26,24 @@ public class Frame extends JFrame {
         setLayout(new BorderLayout());
         setButtons();
 
-        highScore.setOpaque(false);
-        add(highScore, BorderLayout.PAGE_START);
+        addScorePanel();
 
         JPanel drumsPanel = new JPanel();
-        drumsPanel.setLayout(new GridLayout(1,4));
+        drumsPanel.setLayout(new GridLayout(1, 4));
 
-        crashCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.CRASH));
+        crashCymbal.addActionListener(actionEvent -> userListenerEvents.drumClicked(Drum.CRASH));
         crashCymbal.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         drumsPanel.add(crashCymbal);
 
-        snare.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.SNARE));
+        snare.addActionListener(actionEvent -> userListenerEvents.drumClicked(Drum.SNARE));
         snare.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         drumsPanel.add(snare);
 
-        bass.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.BASS));
+        bass.addActionListener(actionEvent -> userListenerEvents.drumClicked(Drum.BASS));
         bass.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         drumsPanel.add(bass);
 
-        hiHatCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.HIHAT));
+        hiHatCymbal.addActionListener(actionEvent -> userListenerEvents.drumClicked(Drum.HIHAT));
         hiHatCymbal.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         drumsPanel.add(hiHatCymbal);
 
@@ -50,7 +51,7 @@ public class Frame extends JFrame {
 
         JPanel buttonPanel = new JPanel();
         JButton newGame = new JButton("Start new game");
-        newGame.addActionListener(actionEvent -> listenerEvents.newGame());
+        newGame.addActionListener(actionEvent -> userListenerEvents.newGame());
 
         buttonPanel.add(newGame);
         add(buttonPanel, BorderLayout.SOUTH);
@@ -82,11 +83,26 @@ public class Frame extends JFrame {
         try {
             File file = new File(fileName);
             Image image = ImageIO.read(file);
-            image = image.getScaledInstance(125,175,Image.SCALE_SMOOTH);
+            image = image.getScaledInstance(125, 175, Image.SCALE_SMOOTH);
             button.setIcon(new ImageIcon(image));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private void addScorePanel() {
+        JPanel scorePanel = new JPanel();
+        scorePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 0));
+        scorePanel.setOpaque(true);
+
+        highScore.setOpaque(true);
+        scorePanel.add(highScore);
+
+        currentScore.setOpaque(true);
+        scorePanel.add(currentScore);
+
+        add(scorePanel, BorderLayout.PAGE_START);
+    }
 }
+
