@@ -6,12 +6,12 @@ public class SimonGame {
     private int highScore = 0;
     private int currentScore = 0;
 
-    private ArrayList<Drum> drumSequence = new ArrayList<>();
+    private final ArrayList<Drum> drumSequence = new ArrayList<>();
     private int index = 0;
     private boolean finishedRound = false;
-    Random rand = new Random();
-    List<Drum> drums = Arrays.asList(Drum.values());
-    int amountDrums = drums.size();
+    private final Random rand = new Random();
+    private final List<Drum> drums = Arrays.asList(Drum.values());
+    private final int amountDrums = drums.size();
 
     public SimonGame() {
         newGame();
@@ -21,7 +21,7 @@ public class SimonGame {
         index = 0;
         finishedRound = false;
         drumSequence.clear();
-        buildSequence();
+        growSequence();
         currentScore = 0;
     }
 
@@ -38,7 +38,7 @@ public class SimonGame {
             } else {
                 currentScore++;
                 finishedRound = true;
-                buildSequence();
+                growSequence();
                 index = 0;
 
                 highScore = Math.max(highScore, currentScore);
@@ -55,7 +55,7 @@ public class SimonGame {
         return currentScore;
     }
 
-    public void buildSequence() {
+    public void growSequence() {
         Drum nextDrum = drums.get(rand.nextInt(amountDrums));
         drumSequence.add(nextDrum);
     }
