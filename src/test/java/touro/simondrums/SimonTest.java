@@ -13,10 +13,6 @@ public class SimonTest {
     public void newGame(){
         //given
         SimonGame simon = new SimonGame();
-        simon.buildSequence();
-        simon.buildSequence();
-        simon.buildSequence();
-        simon.buildSequence();
 
         //when
         simon.newGame();
@@ -51,11 +47,11 @@ public class SimonTest {
         ArrayList<Drum> drums;
         int index;
         boolean response;
-        simon.buildSequence();
 
         //when
         drums = simon.getDrumSequence();
         index = drums.size() - 1;
+
         switch (drums.get(index)) {
             case BASS:
                 response = simon.checkResponse(Drum.BASS);
@@ -84,7 +80,6 @@ public class SimonTest {
         ArrayList<Drum> drums;
         int index;
         boolean response;
-        simon.buildSequence();
 
         //when
         drums = simon.getDrumSequence();

@@ -5,7 +5,9 @@ the user to remember not only the drum sequence that was
 played, but also the sound each drum makes - so that they
 can replay the sequence.
 
-![ALT](SimonDrumsScreenshot.png)
+Try it yourself with this [jar](build/libs/SimonDrums-1.0-SNAPSHOT.jar) file!
+
+![ALT](SimonDrumScreenshot.PNG)
 
 #### Contributors
 [Tamar Aufrichtig](https://github.com/TamarAuf/Simon-Drums)  
