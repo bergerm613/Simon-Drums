@@ -7,7 +7,7 @@ can replay the sequence.
 
 Try it yourself with this [jar](build/libs/Simon Drums-1.0-SNAPSHOT.jar)!
 
-![ALT](SimonDrumsScreenshot.PNG)
+![ALT](SimonDrumScreenshot.PNG)
 
 #### Contributors
 [Tamar Aufrichtig](https://github.com/TamarAuf/Simon-Drums)  
