@@ -31,7 +31,6 @@ public class UserListenerEvents {
                 compListenerEvent.playSequence();
             }
         } else {
-            currentScore.setText("Current Score: " + game.getCurrentScore());
             audioPlayer.drumAudioResponse(drum);
         }
     }
@@ -43,6 +42,7 @@ public class UserListenerEvents {
             gameIsPlaying = false;
             highScore.setText("High Score: " + game.getHighScore());
         } else {
+            currentScore.setText("Current Score: " + game.getCurrentScore());
             audioPlayer.drumAudioResponse(drum);
         }
     }
