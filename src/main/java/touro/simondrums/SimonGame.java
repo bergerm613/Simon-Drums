@@ -4,6 +4,7 @@ import java.util.*;
 
 public class SimonGame {
     private int highScore = 0;
+    private int currentScore = 0;
 
     private ArrayList<Drum> drumSequence = new ArrayList<>();
     private int index = 0;
@@ -21,6 +22,7 @@ public class SimonGame {
         finishedRound = false;
         drumSequence.clear();
         buildSequence();
+        currentScore = 0;
     }
 
     public boolean checkResponse(Drum userResponse) {
@@ -34,11 +36,12 @@ public class SimonGame {
             if (index < size - 1) {
                 index += 1;
             } else {
+                currentScore++;
                 finishedRound = true;
                 buildSequence();
                 index = 0;
 
-                highScore = Math.max(highScore, size);
+                highScore = Math.max(highScore, currentScore);
             }
             return true;
         }
@@ -46,6 +49,10 @@ public class SimonGame {
 
     public int getHighScore() {
         return highScore;
+    }
+
+    public int getCurrentScore() {
+        return currentScore;
     }
 
     public void buildSequence() {

@@ -13,9 +13,11 @@ public class Frame extends JFrame {
     private JButton hiHatCymbal;
 
     private JLabel highScore = new JLabel("High Score: 0", SwingConstants.CENTER);
+    private JLabel currentScore = new JLabel("Current Score: 0");
 
     public Frame(SimonGame game) {
         super();
+
         UserListenerEvents userListenerEvents = new UserListenerEvents(game, highScore);
 
         setSize(700, 275);
@@ -24,11 +26,10 @@ public class Frame extends JFrame {
         setLayout(new BorderLayout());
         setButtons();
 
-        highScore.setOpaque(false);
-        add(highScore, BorderLayout.PAGE_START);
+        addScorePanel();
 
         JPanel drumsPanel = new JPanel();
-        drumsPanel.setLayout(new GridLayout(1,4));
+        drumsPanel.setLayout(new GridLayout(1, 4));
 
         crashCymbal.addActionListener(actionEvent -> userListenerEvents.drumClicked(Drum.CRASH));
         crashCymbal.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
@@ -82,11 +83,26 @@ public class Frame extends JFrame {
         try {
             File file = new File(fileName);
             Image image = ImageIO.read(file);
-            image = image.getScaledInstance(125,175,Image.SCALE_SMOOTH);
+            image = image.getScaledInstance(125, 175, Image.SCALE_SMOOTH);
             button.setIcon(new ImageIcon(image));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private void addScorePanel() {
+        JPanel scorePanel = new JPanel();
+        scorePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 0));
+        scorePanel.setOpaque(true);
+
+        highScore.setOpaque(true);
+        scorePanel.add(highScore);
+
+        currentScore.setOpaque(true);
+        scorePanel.add(currentScore);
+
+        add(scorePanel, BorderLayout.PAGE_START);
+    }
 }
+
