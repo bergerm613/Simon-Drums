@@ -1,27 +1,27 @@
 package touro.simondrums;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class UserListenerEvents {
-    SimonGame game;
-    AudioPlayer audioPlayer = new AudioPlayer();
-    JLabel highScore;
-    JLabel currentScore;
-    CompListenerEvents compListenerEvent;
-    boolean gameIsPlaying;
+    private final SimonGame game;
+    private final AudioPlayer audioPlayer = new AudioPlayer();
+    private final JLabel highScore;
+    private final JLabel currentScore;
+    private final ComputerListenerEvents compListenerEvent;
+    private boolean gameIsPlaying;
 
     public UserListenerEvents(SimonGame game, JLabel highScore, JLabel currentScore) {
         this.game = game;
         this.highScore = highScore;
         this.currentScore = currentScore;
-        this.compListenerEvent = new CompListenerEvents(game, audioPlayer);
+        this.compListenerEvent = new ComputerListenerEvents(game, audioPlayer);
     }
 
     public void newGame() {
         game.newGame();
         gameIsPlaying = true;
-        currentScore.setText("Current Score: " + game.getCurrentScore());        compListenerEvent.playSequence();
+        currentScore.setText("Current Score: " + game.getCurrentScore());
+        compListenerEvent.playSequence();
     }
 
     public void drumClicked(Drum drum) {

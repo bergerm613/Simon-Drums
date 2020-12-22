@@ -29,7 +29,7 @@ public class SimonTest {
 
         //when
         for (int i = 0; i < 3; i++) {
-            simon.buildSequence();
+            simon.growSequence();
         }
         int currSize = drumSequence.size();
 

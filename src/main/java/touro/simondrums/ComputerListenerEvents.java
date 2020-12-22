@@ -2,16 +2,16 @@ package touro.simondrums;
 
 import java.util.ArrayList;
 
-public class CompListenerEvents {
-    SimonGame game;
-    AudioPlayer audioPlayer;
+public class ComputerListenerEvents {
+    private final SimonGame game;
+    private final AudioPlayer audioPlayer;
 
-    public CompListenerEvents(SimonGame game, AudioPlayer audioPlayer) {
+    public ComputerListenerEvents(SimonGame game, AudioPlayer audioPlayer) {
         this.game = game;
         this.audioPlayer = audioPlayer;
     }
 
-    public void drumClicked(Drum drum){
+    public void drumClicked(Drum drum) {
         audioPlayer.drumAudioResponse(drum);
     }
 
