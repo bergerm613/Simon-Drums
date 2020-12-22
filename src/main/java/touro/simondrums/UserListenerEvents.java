@@ -8,6 +8,7 @@ public class UserListenerEvents {
     AudioPlayer audioPlayer = new AudioPlayer();
     JLabel highScore;
     CompListenerEvents compListenerEvent;
+    boolean gameIsPlaying;
 
     public UserListenerEvents(SimonGame game, JLabel highScore) {
         this.game = game;
@@ -17,19 +18,29 @@ public class UserListenerEvents {
 
     public void newGame() {
         game.newGame();
+        gameIsPlaying = true;
         compListenerEvent.playSequence();
     }
 
     public void drumClicked(Drum drum) {
-        //if that was the wrong response
-        if (!game.checkResponse(drum)) {
-            audioPlayer.playFailure();
-            highScore.setText("High Score: " + game.getHighScore());
+        if (gameIsPlaying) {
+            checkUserResponse(drum);
+            if (game.isFinishedRound()) {
+                compListenerEvent.playSequence();
+            }
         } else {
             audioPlayer.drumAudioResponse(drum);
         }
-        if (game.isFinishedRound()) {
-            compListenerEvent.playSequence();
+    }
+
+    private void checkUserResponse(Drum drum) {
+        //if that was the wrong response
+        if (!game.checkResponse(drum)) {
+            audioPlayer.playFailure();
+            gameIsPlaying = false;
+            highScore.setText("High Score: " + game.getHighScore());
+        } else {
+            audioPlayer.drumAudioResponse(drum);
         }
     }
 }
