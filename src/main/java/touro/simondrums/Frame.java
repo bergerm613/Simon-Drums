@@ -18,7 +18,7 @@ public class Frame extends JFrame {
 
     public Frame(SimonGame game) {
         super();
-        ListenerEvents listenerEvents = new ListenerEvents(game, highScore);
+        UserListenerEvents userListenerEvents = new UserListenerEvents(game, highScore);
 
         setSize(700, 275);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -31,19 +31,19 @@ public class Frame extends JFrame {
         JPanel drumsPanel = new JPanel();
         drumsPanel.setLayout(new GridLayout(1,4));
 
-        crashCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.CRASH));
+        crashCymbal.addActionListener(actionEvent -> userListenerEvents.drumClicked(Drum.CRASH));
         crashCymbal.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         drumsPanel.add(crashCymbal);
 
-        snare.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.SNARE));
+        snare.addActionListener(actionEvent -> userListenerEvents.drumClicked(Drum.SNARE));
         snare.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         drumsPanel.add(snare);
 
-        bass.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.BASS));
+        bass.addActionListener(actionEvent -> userListenerEvents.drumClicked(Drum.BASS));
         bass.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         drumsPanel.add(bass);
 
-        hiHatCymbal.addActionListener(actionEvent -> listenerEvents.drumClicked(Drum.HIHAT));
+        hiHatCymbal.addActionListener(actionEvent -> userListenerEvents.drumClicked(Drum.HIHAT));
         hiHatCymbal.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         drumsPanel.add(hiHatCymbal);
 
@@ -51,7 +51,7 @@ public class Frame extends JFrame {
 
         JPanel buttonPanel = new JPanel();
         JButton newGame = new JButton("Start new game");
-        newGame.addActionListener(actionEvent -> listenerEvents.newGame());
+        newGame.addActionListener(actionEvent -> userListenerEvents.newGame());
 
         buttonPanel.add(newGame);
         add(buttonPanel, BorderLayout.SOUTH);

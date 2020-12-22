@@ -11,7 +11,7 @@ public class AudioPlayer {
 
     private void setupAudioClip(String fileName) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         CountDownLatch syncLatch = new CountDownLatch(1);
-        inputStream = ListenerEvents.class.getClassLoader().getResourceAsStream(fileName);
+        inputStream = AudioPlayer.class.getClassLoader().getResourceAsStream(fileName);
         audioIn = AudioSystem.getAudioInputStream(inputStream);
         Clip clip = AudioSystem.getClip();
         clip.addLineListener(e -> {
