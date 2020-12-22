@@ -20,6 +20,7 @@ public class ListenerEvents {
     public void newGame() {
         game.newGame();
         gameIsPlaying = true;
+        currentScore.setText("Current Score: " + game.getCurrentScore());
         computerPlaySequence();
     }
 
@@ -30,14 +31,16 @@ public class ListenerEvents {
             if (!game.checkResponse(drum)) {
                 audioPlayer.playFailure();
                 gameIsPlaying = false;
-                highScore.setText("High Score: " + game.getHighScore()); } else {
+                highScore.setText("High Score: " + game.getHighScore()); }
+            else {
                 currentScore.setText("Current Score: " + game.getCurrentScore());
                 audioPlayer.drumAudioResponse(drum);
             }
             if (game.isFinishedRound()) {
                 computerPlaySequence();
             }
-        } else {
+        }
+        else {
             audioPlayer.drumAudioResponse(drum);
             player = true;
         }
